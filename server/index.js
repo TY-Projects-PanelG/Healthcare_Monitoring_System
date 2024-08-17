@@ -20,3 +20,4 @@ app.use("/api/patients",patientsRouter);
 app.listen(PORT,(request,response)=>{
     console.log(`Server Listening on Port : ${PORT}`);
 });
+

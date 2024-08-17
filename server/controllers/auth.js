@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Patient } from '../models/patientSchema.js';
-import { request, response } from 'express';
 
 export const register = async(request,response)=>{
     const {
@@ -10,7 +9,8 @@ export const register = async(request,response)=>{
         email,
         dob,
         contact,
-        password
+        password,
+        appointments
     } = request.body;
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password,salt);
@@ -21,7 +21,8 @@ export const register = async(request,response)=>{
         email,
         dob,
         contact,
-        password:hashedPassword
+        password:hashedPassword,
+        appointments
     });
     try {
         const savedPatient = await newPatient.save();

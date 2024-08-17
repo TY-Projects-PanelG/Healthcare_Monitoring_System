@@ -1,58 +1,23 @@
 import { request, response, Router } from "express";
-import { Patient } from "../models/patientSchema.js";
 import { login, register } from "../controllers/auth.js";
+import { verifyToken } from "../middlewares/auth.js";
+import { deletePatient, getAllPatients, getAppointmentById, getPatientsById, updatePatient } from "../controllers/patients.js";
 
 const router = Router();
 
-router.get("/",async(request,response)=>{
-    try {
-        const patients = await Patient.find();
-        if(!patients) return response.sendStatus(404);
-        return response.status(200).send(patients);
-    } catch (error) {
-        console.log(error);
-    }
-});
+router.get("/", verifyToken, getAllPatients);
 
-router.get("/:id", async(request,response)=>{
-    const {id} = request.params;
-    try {
-        const idPatient = await Patient.findById(id);
-        if(!idPatient) return response.sendStatus(404);
-        return response.send(idPatient);
-    } catch (error) {
-        console.log(error);
-        return response.status(500).send({ error: "An error occurred while fetching patients." });
-    }
-});
+router.get("/:id", verifyToken, getPatientsById);
 
-router.post("/",register);
+router.get("/:id/appointments", getAppointmentById);
+
+router.post("/register",register);
 
 router.post("/login",login);
 
-router.put("/:id", async(request,response)=>{
-    const {id} = request.params;
-    const updatedPatient = request.body;
-    try {
-        const upPatient = await Patient.findByIdAndUpdate(id,updatedPatient);
-        if(!upPatient) return response.status(400).send({msg:"Invalid Id."});
-        return response.status(200).send(upPatient);
-    } catch (error) {
-        console.log(error);
-    }
-});
+router.put("/:id", verifyToken, updatePatient);
 
-router.delete("/:id", async(request,response)=>{
-    const {id} = request.params;
-    const deletedPatient = request.body;
-    try {
-        const dePatient = await Patient.findByIdAndDelete(id,deletedPatient);
-        if(!dePatient) return response.status(400).send({msg:"Invalid Id."});
-        return response.status(200).send(dePatient);
-    } catch (error) {
-        console.log(error);
-    }
-});
+router.delete("/:id", verifyToken, deletePatient);
 
 
 export default router;
