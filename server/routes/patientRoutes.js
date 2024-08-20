@@ -9,7 +9,7 @@ router.get("/", verifyToken, getAllPatients);
 
 router.get("/:id", verifyToken, getPatientsById);
 
-router.get("/:id/appointments", getAppointmentById);
+router.get("/appointments/:patientId", getAppointmentById);
 
 router.post("/register",register);
 

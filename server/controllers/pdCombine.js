@@ -10,9 +10,18 @@ export const addPatientToDoctor = async(doctorID,patientID)=>{
         const patient = await Patient.findById(patientID);
         if(!patient) throw new Error("Patient not found");
 
-        doctor.pastPatients.push(patient._id);
+        if(!doctor.pastPatients.includes(patient._id)){
+            doctor.pastPatients.push(patient._id);
+        }
+
+        if(!patient.appointments.includes(doctor._id)){
+            patient.appointments.push(doctor._id);  
+        }
+
         const updatedDoctor = await doctor.save();
-        return updatedDoctor;
+        const updatedPatient = await patient.save();
+
+        return {updatedDoctor,updatedPatient};
     } catch (error) {
         console.log(error);
     }

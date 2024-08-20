@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { Patient } from "./patientSchema.js";
 
 const reviewSchema = new Schema({
     comment:String,

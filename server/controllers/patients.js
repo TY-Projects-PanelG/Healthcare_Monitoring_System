@@ -1,3 +1,4 @@
+import { Doctor } from "../models/doctorSchema.js";
 import { Patient } from "../models/patientSchema.js";
 
 export const getAllPatients = async(request,response)=>{
@@ -48,19 +49,21 @@ export const deletePatient = async(request,response)=>{
 
 export const getAppointmentById = async(request,response)=>{
     try {
-        const {id} = request.params;
-        const patient = await Patient.findById(id);
-        if(!patient) return response.sendStatus(404);
+        const {patientId} = request.params;
+        const patient = await Patient.findById(patientId);
+        if(!patient) throw new Error("patient not found");
 
-        const appointments = patient.appointments
-
-        const formattedAppointment = appointments.map(
-            ({day, date, diagnose}) =>{
-                return {day, date, diagnose};
-            }
+        const appointments = patient.appointments;
+        if(!appointments) throw new Error("Appointments not found");
+        const appointmentDetails = await Promise.all(
+            appointments.map(async(doctorID)=>{
+                const mainAppointments = await Doctor.findById(doctorID).select("-password");
+            if(!mainAppointments) throw new Error("Doctor not found");
+                return mainAppointments;
+            })
         );
-        response.status(200).json(formattedAppointment);
+        return response.status(200).send(appointmentDetails);
     } catch (error) {
         console.log(error);
     }
-};   
+};

@@ -40,7 +40,12 @@ const patientSchema = new Schema({
         required: true,
         minlength: 7,
     },
-    appointments:[appointmentsSchema]
+    appointments:[
+            {
+                type: Schema.Types.ObjectId,
+                ref:'Doctor'
+            }
+    ]
 
 },{timestamps: true});
 
