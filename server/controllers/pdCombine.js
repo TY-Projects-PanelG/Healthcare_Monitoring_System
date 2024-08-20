@@ -45,7 +45,7 @@ export const fetchAllPatients = async(request,response)=>{
         if(!patients) throw new Error("Patient not found");
         const patientDetails = await Promise.all(
             patients.map(async(patientID)=>{
-                const mainPatient = await Patient.findById(patientID);
+                const mainPatient = await Patient.findById(patientID).select("-password -appointments");
             if(!mainPatient) throw new Error("Patient not found");
                 return mainPatient;
             })
