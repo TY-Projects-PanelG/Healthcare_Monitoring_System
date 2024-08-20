@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { Patient } from "./patientSchema.js";
 
 const reviewSchema = new Schema({
     comment:String,
@@ -26,7 +27,6 @@ const doctorSchema = new Schema({
     dob: {
         type: String,
         required: true,
-        required: false
     },
     contact: {
         type: String,
@@ -60,8 +60,14 @@ const doctorSchema = new Schema({
         required: true,
         minlength: 7,
     },
-    comments:[reviewSchema]
+    comments:[reviewSchema],
+    pastPatients:[
+        {
+            type: Schema.Types.ObjectId,
+            ref:'Patient'
+        }
+    ]
 
 },{timestamps: true});
 
-export const Doctor = mongoose.model("Patient", doctorSchema);
+export const Doctor = mongoose.model("Doctor", doctorSchema);

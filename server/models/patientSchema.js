@@ -28,7 +28,6 @@ const patientSchema = new Schema({
     dob: {
         type: String,
         required: true,
-        required: false
     },
     contact: {
         type: String,
