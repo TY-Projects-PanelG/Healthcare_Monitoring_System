@@ -11,6 +11,7 @@ export const register = async(request,response)=>{
         dob,
         contact,
         experience,
+        specialization,
         education,
         password,
         comments
@@ -25,6 +26,7 @@ export const register = async(request,response)=>{
         dob,
         contact,
         experience,
+        specialization,
         education,
         password:hashedPassword,
         comments
