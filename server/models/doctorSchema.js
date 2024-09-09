@@ -36,22 +36,30 @@ const doctorSchema = new Schema({
     experience:{
         type: String,
     },
+    speciality:{
+        type: String,
+        required: true,
+    },
     education:{
         tenth:{
             type:String,
             required:true,
+            default:'100%'
         },
         twelth:{
             type:String,
             required:true,
+            default:'100%'
         },
         ug:{
             type:String,
             required:true,
+            default:'100%'
         },
         pg:{
             type:String,
             required:true,
+            default:'100%'
         }
     },
     password: {

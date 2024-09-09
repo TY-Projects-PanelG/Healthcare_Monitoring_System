@@ -6,9 +6,9 @@ import { verifyToken } from "../middlewares/auth.js";
 
 const router = Router();
 
-router.get("/", verifyToken, getAllDoctors);
+router.get("/", getAllDoctors);
 
-router.get("/:id", verifyToken, getDoctorsById);
+router.get("/:id", getDoctorsById);
 
 router.post("/register", register);
 

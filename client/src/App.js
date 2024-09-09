@@ -1,24 +1,27 @@
-import './App.css';
-import { useEffect, useState } from 'react';
+import React from 'react'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import { Navbar } from './components/Navbar';
+import { Home } from './pages/Home';
+import { Contact } from './pages/Contact';
+import { FindADoctor } from './pages/FindADoctor';
+import { Services } from './pages/Services';
+import { RegisterPage } from './pages/RegisterPage';
+import { LoginPage } from './pages/LoginPage';
 
-function App() {
-
-  const [data, setData] = useState([]);
-  const api = `http://localhost:8000/api/patients`;
-  useEffect(()=>{
-    (async function() {
-      let fetchedData = await fetch(api).then((res)=>res.json());
-      console.log(data);
-      setData(fetchedData);
-      console.log(fetchedData);
-    })();
-  },[api])
-
-
-  return (
-    <div className="App">
-    </div>
-  );
+const App = () => {
+  return(
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/register' element={<RegisterPage />}/>
+        <Route path='/login' element={<LoginPage />}/>
+        <Route path='/doctors' element={<FindADoctor />}/>
+        <Route path='/services' element={<Services />}/>
+        <Route path='/contact' element={<Contact />}/>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
