@@ -7,6 +7,7 @@ import { FindADoctor } from './pages/FindADoctor';
 import { Services } from './pages/Services';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
+import { Schedule } from './pages/Schedule';
 
 const App = () => {
   return(
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/doctors' element={<FindADoctor />}/>
         <Route path='/services' element={<Services />}/>
         <Route path='/contact' element={<Contact />}/>
+        <Route path='/schedule' element={<Schedule />}/>
       </Routes>
     </BrowserRouter>
   )
