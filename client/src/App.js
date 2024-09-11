@@ -8,7 +8,7 @@ import { Services } from './pages/Services';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import { Schedule } from './pages/Schedule';
-
+import Calendar from './pages/CalenderPage';
 const App = () => {
   return(
     <BrowserRouter>
@@ -21,6 +21,7 @@ const App = () => {
         <Route path='/services' element={<Services />}/>
         <Route path='/contact' element={<Contact />}/>
         <Route path='/schedule' element={<Schedule />}/>
+        <Route path='/calender' element={<Calendar />}/>
       </Routes>
     </BrowserRouter>
   )
