@@ -1,13 +1,16 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
     auth: {
     //   user: "rohanpaltewar@gmail.com",
-      user:"asha123sharma4@gmail.com",
-      pass: "likeaboss",
+      user:process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
     },
   });
 
@@ -19,7 +22,7 @@ export const sendMail = async(request,response)=>{
             from:"asha123sharma4@gmail.com",
             to:email,
             subject:subject,
-            message:message
+            text:message,
         };
         transporter.sendMail(mailOptions,function(error,info){
             if(error){
