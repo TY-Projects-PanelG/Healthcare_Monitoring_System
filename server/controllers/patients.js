@@ -67,3 +67,14 @@ export const getAppointmentById = async(request,response)=>{
         console.log(error);
     }
 };
+
+export const updateApponitments = async(request,response)=>{
+    try {
+        const {day,date,diagnose} = request.body;
+        const appointments = new Patient({day,date,diagnose});
+        const savedAppointments = await appointments.save();
+        response.status(200).json(savedAppointments);
+    } catch (error) {
+        console.log(error);
+    }
+};

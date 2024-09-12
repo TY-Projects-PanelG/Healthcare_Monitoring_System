@@ -7,7 +7,7 @@ import { FindADoctor } from './pages/FindADoctor';
 import { Services } from './pages/Services';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
-import { Schedule } from './pages/Schedule';
+import { Schedule } from './components/Schedule';
 import Calendar from './pages/CalenderPage';
 const App = () => {
   return(
