@@ -29,6 +29,16 @@ export const Schedule = ({ selectDate, setDisplay }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const response2 = await fetch(`http://localhost:8000/api/patients/${patientId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(displayData),
+            });
+            const result2 = await response2.json();
+            console.log("Success", result2);
+
             const response1 = await fetch("http://localhost:8000/api/mail", {
                 method: "POST",
                 headers: {
@@ -40,15 +50,6 @@ export const Schedule = ({ selectDate, setDisplay }) => {
             console.log("Success", result1);
 
 
-            const response2 = await fetch(`http://localhost:8000/api/patients/${patientId}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(displayData),
-            });
-            const result2 = await response2.json();
-            console.log("Success", result2);
         } catch (error) {
             console.log(error);
         }
