@@ -3,13 +3,16 @@ import React, { useState } from "react";
 import { generateDate, months } from "../components/Calender";
 import cn from "../components/Cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { Schedule } from "../components/Schedule";
 
 export default function Calendar() {
+	const [display, setDisplay] = useState(false);
 	const days = ["S", "M", "T", "W", "T", "F", "S"];
 	const currentDate = dayjs();
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
 	return (
+		<>
 		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
 			<div className="w-96 h-96 ">
 				<div className="flex justify-between items-center">
@@ -76,6 +79,7 @@ export default function Calendar() {
 										)}
 										onClick={() => {
 											setSelectDate(date);
+											setDisplay(true);
 										}}
 									>
 										{date.date()}
@@ -93,5 +97,9 @@ export default function Calendar() {
 				<p className="text-gray-400">No meetings for today.</p>
 			</div>
 		</div>
+			{display && <div className="">
+				<Schedule selectDate={selectDate} setDisplay={setDisplay}/>
+			</div>}
+		</>
 	);
 }
