@@ -1,16 +1,27 @@
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { generateDate, months } from "../components/Calender";
 import cn from "../components/Cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { Schedule } from "../components/Schedule";
 
 export default function Calendar() {
+	const [data, setData] = useState(null);
+	const [id, setId] = useState(null);
 	const [display, setDisplay] = useState(false);
 	const days = ["S", "M", "T", "W", "T", "F", "S"];
 	const currentDate = dayjs();
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
+
+	const api = `http://localhost:8000/api/patients/`
+	useEffect(() => {
+		(async function () {
+			const data = await fetch(api).then((res)=>res.json());
+			setData(data);
+		})();
+	}, [api])
+	console.log(data);
 	return (
 		<>
 		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">

@@ -5,9 +5,9 @@ import { deletePatient, getAllPatients, getAppointmentById, getPatientsById, upd
 
 const router = Router();
 
-router.get("/", verifyToken, getAllPatients);
+router.get("/", getAllPatients);
 
-router.get("/:id", verifyToken, getPatientsById);
+router.get("/:id", getPatientsById);
 
 router.get("/appointments/:patientId", getAppointmentById);
 
