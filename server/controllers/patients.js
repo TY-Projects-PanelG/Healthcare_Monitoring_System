@@ -70,9 +70,13 @@ export const getAppointmentById = async(request,response)=>{
 
 export const updateApponitments = async(request,response)=>{
     try {
-        const {day,date,diagnose} = request.body;
-        const appointments = new Patient({day,date,diagnose});
-        const savedAppointments = await appointments.save();
+        const {body:{dayDate,diagnose}, params:{id}} = request;
+        const patient = await Patient.findById(id);
+        if(!patient) return response.status(404).send("Patient not found");
+        
+        patient.appointments.push({dayDate,diagnose});
+
+        const savedAppointments = await patient.save();
         response.status(200).json(savedAppointments);
     } catch (error) {
         console.log(error);

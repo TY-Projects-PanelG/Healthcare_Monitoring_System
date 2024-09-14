@@ -1,8 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const appointmentsSchema = new Schema({
-    date:String,
-    day:String,
+    dayDate:String,
     diagnose:String
 });
 

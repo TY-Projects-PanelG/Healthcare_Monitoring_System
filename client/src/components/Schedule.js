@@ -7,14 +7,24 @@ export const Schedule = ({ selectDate, setDisplay }) => {
     const [close, setClose] = useState(true);
     const [formData, setFormData] = useState({
         email: "",
-        subject: "",
-        message: ""
+        subject: `Appointment Confirmed`,
+        message: `Your Appointment is Scheduled on ${selectDate}`,
     });
+    const [displayData, setDisplayData] = useState({
+        dayDate: selectDate.toDate().toDateString(), 
+        diagnose: "",
+    });
+    console.log(displayData);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
+    const handleInputChange2 = (e) => {
+        const {name, value} = e.target;
+        setDisplayData({ ...displayData, [name]: value});
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,11 +41,11 @@ export const Schedule = ({ selectDate, setDisplay }) => {
 
 
             const response2 = await fetch(`http://localhost:8000/api/patients/${patientId}`, {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(displayData),
             });
             const result2 = await response2.json();
             console.log("Success", result2);
@@ -47,7 +57,7 @@ export const Schedule = ({ selectDate, setDisplay }) => {
         <>
             {close && <section className='flex justify-center items-center fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm'>
                 <div>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80 mx-auto p-4 bg-white rounded shadow-lg">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[360px] mx-auto p-4 bg-white rounded shadow-lg">
     <button
         type="button"
         onClick={() => {
@@ -60,6 +70,22 @@ export const Schedule = ({ selectDate, setDisplay }) => {
     </button>
     <span className="text-lg font-semibold mb-2">{selectDate.toDate().toDateString()}</span>
     
+    {/* <input
+        name="firstname"
+        value={formData.firstname}
+        onChange={handleInputChange2}
+        placeholder="Firstname"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
+<input
+        name="lastname"
+        value={formData.lastname}
+        onChange={handleInputChange2}
+        placeholder="Lastname"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    /> */}
+
     <input
         name="email"
         value={formData.email}
@@ -69,21 +95,13 @@ export const Schedule = ({ selectDate, setDisplay }) => {
     />
     
     <input
-        name="subject"
-        value={formData.subject}
-        onChange={handleInputChange}
-        placeholder="Subject"
+        name="diagnose"
+        value={formData.diagnose}
+        onChange={handleInputChange2}
+        placeholder="Diagnose"
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
-    
-    <input
-        name="message"
-        value={formData.message}
-        onChange={handleInputChange}
-        placeholder="Message"
-        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    
+
     <Button
         type="submit"
         className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 hover:text-white focus:ring-2 focus:ring-blue-500"
