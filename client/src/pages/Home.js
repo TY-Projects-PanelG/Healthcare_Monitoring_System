@@ -32,6 +32,7 @@ export const Home = () => {
           <p className="mb-6">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
+          <a href="/calender">
           <Button
             type="submit"
             variant="contained"
@@ -46,6 +47,7 @@ export const Home = () => {
           >
             Request an Appointment
           </Button>
+          </a>
         </div>
       </div>
       {/* Image Section */}

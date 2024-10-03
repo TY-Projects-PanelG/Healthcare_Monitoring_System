@@ -3,7 +3,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Button } from '@mui/material';
 
 export const Schedule = ({ selectDate, setDisplay }) => {
-    const [patientId, setPatientId] = useState('66e2ddb6a26bbb545a17ae40');
     const [close, setClose] = useState(true);
     const [formData, setFormData] = useState({
         email: "",
@@ -29,16 +28,6 @@ export const Schedule = ({ selectDate, setDisplay }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response2 = await fetch(`http://localhost:8000/api/patients/${patientId}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(displayData),
-            });
-            const result2 = await response2.json();
-            console.log("Success", result2);
-
             const response1 = await fetch("http://localhost:8000/api/mail", {
                 method: "POST",
                 headers: {
